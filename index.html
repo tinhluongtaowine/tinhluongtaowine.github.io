@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Tính Lương Công Ty Taowine</title>
+  <script src="https://cdn.jsdelivr.net/gh/rik6789/Taowine@main/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/rik6789/Taowine@main/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/rik6789/Taowine@main/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body className="bg-gray-200 font-sans">
+  <div id="root"></div>
+  <script type="text/babel">
+    class ErrorBoundary extends React.Component {
+      state = { error: null };
+      static getDerivedStateFromError(error) {
+        return { error: error.message };
+      }
+      render() {
+        if (this.state.error) {
+          return (
+            <div className="container mx-auto p-4 max-w-4xl text-red-600 text-center">
+              <h1 className="text-2xl font-bold">Lỗi</h1>
+              <p>{this.state.error}</p>
+              <p>Vui lòng thử tải lại trang hoặc kiểm tra kết nối mạng.</p>
+            </div>
+          );
+        }
+        return this.props.children;
+      }
+    }
+
+    const FAQ = () => {
+  const [openIndex, setOpenIndex] = React.useState(null);
+
+  const faqs = [
+    {
+      question: "Lương 8H chưa tăng ca được tính thế nào?",
+      answer: (
+        <div>
+          <p>Lương 8H chưa tăng ca là lương cơ bản cho 8 giờ làm việc 26 ngày được trả khi bạn đi phỏng vấn, tuỳ theo mức lương được trả sẽ khác nhau.</p>
+        </div>
+      )
+    },
+	
+    {
+      question: "Tiền tăng ca được tính ra sao?",
+      answer: (
+        <div>
+          <p>Tiền tăng ca dựa trên lương tính tăng ca hiện tại của công ty là bao nhiêu, ví dụ 7.000.000 chia cho 26 hoặc 27 ngày làm việc, rồi tính theo tỷ lệ 150%, 200%, hoặc 300%.</p>
+        </div>
+      )
+    },
+	
+	
+    {
+      question: "Số ngày làm đêm để làm gì?",
+      answer: (
+        <div>
+          <p>Mỗi ngày làm đêm được phụ cấp 30,000 VND ghi số ngày làm đêm sẽ được cộng số tiền tương ứng</p>
+        </div>
+      )
+    },
+	
+	 {
+      question: "Tại sao phải chọn tháng làm việc?",
+      answer: (
+        <div>
+          <p>Tùy tháng có 30 hoặc 31 ngày nên cách tính sẽ khác nhau,chọn đúng tháng sẽ được tính tự động dựa trên tháng bạn chọn.</p>
+        </div>
+      )
+    },
+	
+	
+	{
+      question: "Quên quẹt thẻ bù thẻ, xin nghỉ",
+      answer: (
+        <div>
+          <p className="text-xl">Truy cập vào app làm theo hướng dẫn.</p>
+		   <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj9V9bvMc85daCiuNthBuJKEmXxj2RL0xbrbM-eKmcR6WzdJaM4dZDFY18SDXZZsg2IaMPc2y4JFyuCGuXe1wBiy8YnJ_gwDRG0ijxNdS_Ae-UMFRKnavn3OlD4TylqeDun1Q3fO0e_ak8Lbf9QDiEz9QgENo0DUPkHfvPJ1AaMHBNKh6JVRlsQUgYWEekU/w336-h640/1.jpg" rel="nofollow" target="_blank"><img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj9V9bvMc85daCiuNthBuJKEmXxj2RL0xbrbM-eKmcR6WzdJaM4dZDFY18SDXZZsg2IaMPc2y4JFyuCGuXe1wBiy8YnJ_gwDRG0ijxNdS_Ae-UMFRKnavn3OlD4TylqeDun1Q3fO0e_ak8Lbf9QDiEz9QgENo0DUPkHfvPJ1AaMHBNKh6JVRlsQUgYWEekU/w336-h640/1.jpg"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          /></a>
+		  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEzX6LCT_6olIB8FHiMdzGLNmIwrAZDctJjW_x4LikRpWWmzMrTWxbpEyzcK2wnRdCGdEl8YZ3kEeYc7EQsp3Ng4hQOiJMfFKa7WdLwpj-6QIt9yh8UT-J1ly_owaOqUouvv-s7SD34QCCm_8N_sgBIznjp8LouJQz5RH-_fX-oiHprfc6QY5F5Gx3zhS6/s16000/2.jpg" rel="nofollow" target="_blank"><img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEzX6LCT_6olIB8FHiMdzGLNmIwrAZDctJjW_x4LikRpWWmzMrTWxbpEyzcK2wnRdCGdEl8YZ3kEeYc7EQsp3Ng4hQOiJMfFKa7WdLwpj-6QIt9yh8UT-J1ly_owaOqUouvv-s7SD34QCCm_8N_sgBIznjp8LouJQz5RH-_fX-oiHprfc6QY5F5Gx3zhS6/s16000/2.jpg"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          /></a>
+		  <p className="mt-2 text-green-600 hover:text-green-800 underline">Chọn HR001 để xin nghỉ phép, HR004 bù quẹt thẻ</p>
+		  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhT4ybPDSAO2HVMRVcgFya_xCM73wgLClo9eGc6JVBtCG-ve8I9pgq6REQsNTUaH49-ZqZwYzYgBpXmpn17r5Zh0kFdxUbhAi8-N7DunluhbY5x2nYIoGktRs1kxPtvlNb5MK0b3qIKk3CvI9TrkAxIA6zZGhX46HHX8mhd-am6weMZ8gs_T1gFHNKL5KSE/s16000/3.jpg" rel="nofollow" target="_blank"><img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhT4ybPDSAO2HVMRVcgFya_xCM73wgLClo9eGc6JVBtCG-ve8I9pgq6REQsNTUaH49-ZqZwYzYgBpXmpn17r5Zh0kFdxUbhAi8-N7DunluhbY5x2nYIoGktRs1kxPtvlNb5MK0b3qIKk3CvI9TrkAxIA6zZGhX46HHX8mhd-am6weMZ8gs_T1gFHNKL5KSE/s16000/3.jpg"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          /></a>
+		  <p className="mt-2 text-xl text-green-600 hover:text-green-800 underline">1.Xin Nghỉ Phép(HR001)</p>
+		  <p>Vào HR001 chọn Loại phép: chọn nghỉ việc riêng hoặc phép năm.</p>
+		  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhy-Bj4RBRaUVcP0_4UYFAEiMFjSU7PXWsBJ9BhE1o3teeal0blc9AWtlZfFvRo5017d7n2ddgjOZ4TJx24cGvbxsO5iJZ31M5_Yzi2p_M0flQGZBMK1v8Iad2FLz2v1YaDTYeaBGjF2UWAqyXqJGuMA55oKo7nQoILs07AXsZMFdJXOgJ1KCsEh4LZWXRv/s16000/4.jpg" rel="nofollow" target="_blank"><img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhy-Bj4RBRaUVcP0_4UYFAEiMFjSU7PXWsBJ9BhE1o3teeal0blc9AWtlZfFvRo5017d7n2ddgjOZ4TJx24cGvbxsO5iJZ31M5_Yzi2p_M0flQGZBMK1v8Iad2FLz2v1YaDTYeaBGjF2UWAqyXqJGuMA55oKo7nQoILs07AXsZMFdJXOgJ1KCsEh4LZWXRv/s16000/4.jpg"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          /></a>
+		  
+		    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_utSbgovMa5Qex77Jy5krjTy0mNhbWOq-0UpZgQTmasiaJDGNXXPycWf56JurIw_Hh-9xFbQIpTMeMhdKBIKaZs-Lh5t3QJqTP9plH5yrExSQiE1yac3_z2t_GqinHoS7oqAd_Hx66YsgU0mhSW6xbI5ozjKy7SvHJV4xn9rvZFPEnH4X1PfA3MbRzlXb/s16000/5.jpg" rel="nofollow" target="_blank"><img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_utSbgovMa5Qex77Jy5krjTy0mNhbWOq-0UpZgQTmasiaJDGNXXPycWf56JurIw_Hh-9xFbQIpTMeMhdKBIKaZs-Lh5t3QJqTP9plH5yrExSQiE1yac3_z2t_GqinHoS7oqAd_Hx66YsgU0mhSW6xbI5ozjKy7SvHJV4xn9rvZFPEnH4X1PfA3MbRzlXb/s16000/5.jpg"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          /></a>
+		  <p className="mt-2 text-xl text-green-600 hover:text-green-800 underline">2.Bù Quẹt Thẻ(HR004)</p>
+		  <p>Vào HR004 kích vào bù thẻ theo hướng dẫn</p>
+		  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhSEypRgHdEzLhMw4pk_2IhIU1igRd3Td0xch2yMwx24K7X03K5hXi9obJY6sxLhcNOM2a2ZuFdfqjy9s_g5etHfrhwpzmaEPr_yJZfNGqUpgO8HUUP_3xkMlOdOMX4SQBarOiT1Wdq4BRFBUZRUkyM0uY9DpdFdFi6-Mqc18qQJ3Fs1Ms5DEw8dsIlmY1h/s16000/6.jpg" rel="nofollow" target="_blank"><img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhSEypRgHdEzLhMw4pk_2IhIU1igRd3Td0xch2yMwx24K7X03K5hXi9obJY6sxLhcNOM2a2ZuFdfqjy9s_g5etHfrhwpzmaEPr_yJZfNGqUpgO8HUUP_3xkMlOdOMX4SQBarOiT1Wdq4BRFBUZRUkyM0uY9DpdFdFi6-Mqc18qQJ3Fs1Ms5DEw8dsIlmY1h/s16000/6.jpg"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          /></a>
+		  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5bvSSD6Ou5WiwZ5iyB4m1fySezMDMcNcmJxNOMD1NeRp5BFQAd6q2glAc7A-d2_a8KD-0dE3DSZ3Y8nXY63Z6D6GoVQ-Gf6QqzOLaDHMld6N5ILBewgNlCN7D2t2LsZZl0pqhcQCU6PkoZO5mTHSw1EQ1x1P1YmgWFFQNOrGuVNINsretZV7kXq2QW5jz/s16000/7.jpg" rel="nofollow" target="_blank"><img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5bvSSD6Ou5WiwZ5iyB4m1fySezMDMcNcmJxNOMD1NeRp5BFQAd6q2glAc7A-d2_a8KD-0dE3DSZ3Y8nXY63Z6D6GoVQ-Gf6QqzOLaDHMld6N5ILBewgNlCN7D2t2LsZZl0pqhcQCU6PkoZO5mTHSw1EQ1x1P1YmgWFFQNOrGuVNINsretZV7kXq2QW5jz/s16000/7.jpg"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          /></a>
+        </div>
+      )
+    },
+	
+	
+    {
+      question: "Tải App chấm công",
+      answer: (
+        <div>
+          <p>"EMobile7" là app Taowine dùng để chấm công .</p>
+		  <p>
+            Tải Android{" "}
+            <a
+              href="https://emobile.weaver.com.cn/customer/EM7/produce.html"
+              target="_blank"
+              className="text-green-600 hover:text-green-800 underline"
+            >
+              Tại Đây
+            </a>.
+          </p>
+		   <p>
+            Tải IOS{" "}
+            <a
+              href="https://apps.apple.com/cn/app/emobile7/id1437702418"
+              target="_blank"
+              className="text-green-600 hover:text-green-800 underline"
+            >
+              Tại Đây
+            </a>.
+          </p>
+          <img
+            src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5a/01/b4/5a01b48a-723b-02f2-ce89-f6519cef94c9/9ff3646e-504a-4a88-b13b-88944f28c482_Simulator_Screenshot_-_iPhone_Xs_Max_-_2024-04-11_at_17.08.44.png/230x0w.webp"
+            alt="Lịch làm việc"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          />
+          <p className="mt-2">Sau khi tải app thành công mở app lên</p>
+		   <p>Sau đó copy IP của Taowine dán vào app và ấn kết nối.</p>
+		  <a href="http://202.104.160.240:8999"
+              target="_blank"
+              className="text-green-600 hover:text-green-800 underline"
+            >
+              http://202.104.160.240:8999
+            </a>.
+			<p>Kết nối thành công vui lòng đăng nhập.</p>
+			<p>Tài khoản là mã thẻ Taowin gồm 4 số.</p>
+			<p>Mật khẩu mặc định dặt là 1.</p>
+        </div>
+      )
+    },
+	
+	
+    {
+      question: "Quyền hạn luxshare, bài thi",
+      answer: (
+        <div>
+          <p className="text-green-600 hover:text-green-800 underline">Đáp án bài thi:</p>
+		  <p>Mẹo chọn tất cả đáp án đúng chỉ trừ đán 8 án sai:</p>
+		  <p className="text-red-600"> Đáp án sai: 6S,13S,15S,17S,19S,24S,25S,29S</p>
+		  <p>1D,2D,3D,4D,5D,6S,7D,8D,9S,10D</p>
+		  <p>11D,12D,13S,14D,15S,16D,17S,18D.19S,20D</p>
+		  <p>21D,22D.23D,24S,25S,26D,27D,28D,29S,30D</p>
+		  <p>31D,32D,33D,34D,35D,36D,37D,38D,39D,40D</p>
+          <p>
+            Link đăng ký bài thi{" "}
+            <a
+              href="https://ks.wjx.top/vm/h4IcVmb.aspx?zarsrc=1303&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo&gidzl=nStp6gsmp334qleQgARCCyNR_1-pz9bWqjhwHBoapZhTt_eUjQ74O8dTfXpYz9Cqsztn7ZLOJ0SThhB7DG"
+              target="_blank"
+              className="text-green-600 hover:text-green-800 underline"
+            >
+              Tại Đây
+            </a>.
+          </p>
+		  
+		  
+		  <p className="mt-2 text-green-600 hover:text-green-800 underline">Ký bảo mật quyền hạn:</p>
+          <p>
+            Link đăng ký bảo mật{" "}
+            <a
+              href="https://m.luxshare-ict.com/"
+              target="_blank"
+              className="text-green-600 hover:text-green-800 underline"
+            >
+              Tại Đây
+            </a>.
+	        </p>
+			 <p className="mt-2">Truy cập theo đường link để đăng nhập</p>
+			 <p>Tài khoản đăng nhập là số Căn Cước Công Dân</p>
+			 <p>Mật khẩu là 6 số cuối của Căn Cước Công Dân</p>
+			 <p>Sau khi đăng nhập Kích vào Hệ Thống - Ký Kết Thoả Thuận</p>
+			 <p>Kích vào và ký tên để ký bảo mật</p>
+		  
+		  <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhogied0lRm-sSwgctufi-zPT0divtM1bXIRhEup9YUiR8o9KmbtPxwYBS3G_BaztqQznjDVYMImYD8fgLoD7-9B2S3ODEnGBgO1_ajoC2Z9uFaTbJ3QyZDV7HP_9rCzCbnsfmmhQFRXAutqWuL0WeZ4gD1zXfVltoOx87_b0KTCitwSWhm0ijcV3h8Njeu/s16000/kyketthoathuan.png" rel="nofollow" target="_blank"><img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhogied0lRm-sSwgctufi-zPT0divtM1bXIRhEup9YUiR8o9KmbtPxwYBS3G_BaztqQznjDVYMImYD8fgLoD7-9B2S3ODEnGBgO1_ajoC2Z9uFaTbJ3QyZDV7HP_9rCzCbnsfmmhQFRXAutqWuL0WeZ4gD1zXfVltoOx87_b0KTCitwSWhm0ijcV3h8Njeu/s16000/kyketthoathuan.png"
+            className="mt-2 w-auto h-auto object-cover rounded-md"
+          /></a>
+		  
+        </div>
+      )
+    },
+  ];
+
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <div className="mt-6 bg-white p-4 rounded-lg shadow-md border border-gray-300">
+      <h2 className="text-lg font-semibold text-green-600 mb-4">Câu Hỏi Thường Gặp</h2>
+      {faqs.map((faq, index) => (
+        <div key={index} className="border border-gray-300 mb-2 rounded-md bg-white">
+          <button
+            onClick={() => toggleFAQ(index)}
+            className="w-full text-left p-3 text-sm font-medium text-gray-900 flex justify-between items-center hover:bg-gray-50"
+          >
+            <span>{faq.question}</span>
+            <span className="text-green-600">{openIndex === index ? '−' : '+'}</span>
+          </button>
+          {openIndex === index && (
+            <div className="p-3 text-sm text-gray-700 bg-gray-100">
+              {faq.answer}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+    const PayrollCalculator = () => {
+      const [month, setMonth] = React.useState(new Date().getMonth() + 0); // Lấy tháng hiện tại (1-12)
+      const [NhapNgayLamDem, setNhapNgayLamDem] = React.useState(0);
+      const [NhapGioTangCaThuong, setNhapGioTangCaThuong] = React.useState(0);
+      const [NhapGioChuNhat, setNhapGioChuNhat] = React.useState(0);
+      const [NhapGioLamLe, setNhapGioLamLe] = React.useState(0);
+      const [LuongCuc, setLuongCuc] = React.useState(10000000); // Lương cục
+      const [LuongCoBanTangCa, setLuongCoBanTangCa] = React.useState(7000000); // Lương cơ bản tăng ca
+
+      // Tính số ngày của tháng và số ngày làm việc
+      const getDaysInMonth = (month) => {
+        const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        return days[month - 1];
+      };
+
+      const getSoNgayCuaThang = (month) => {
+        const SoNgayCuaThang = [27, 26, 27, 26, 27, 26, 27, 27, 26, 27, 26, 27];
+        return SoNgayCuaThang[month - 1];
+      };
+
+      const daysInMonth = getDaysInMonth(month);
+      const SoNgayCuaThang = getSoNgayCuaThang(month);
+
+     const handleNumberInput = (setter, max = Infinity) => (e) => {
+  const value = e.target.value;
+  if (value === '') {
+    setter(''); // Cho phép ô trống tạm thời
+  } else if (!isNaN(value) && Number(value) >= 0) {
+    const cappedValue = Math.min(Number(value), max);
+    setter(cappedValue);
+  }
+};
+
+      const handleMonthChange = (e) => {
+        setMonth(Number(e.target.value));
+      };
+
+      // Giới hạn giá trị
+      const cappedNhapNgayLamDem = Math.min(NhapNgayLamDem, daysInMonth);
+      const cappedNhapGioLamLe = Math.min(NhapGioLamLe, daysInMonth * 8);
+
+      // Tính toán
+      const TienCongMotNgay = (SoNgayCuaThang) > 0 ? LuongCoBanTangCa / (SoNgayCuaThang) : 0;
+      const TienCongMotGio = TienCongMotNgay / 8;
+      const TienTangCa150 = TienCongMotGio * 1.5;
+      const TongTienTangCa150 = NhapGioTangCaThuong * TienTangCa150;
+      const TienTangCa200 = TienCongMotGio * 2;
+      const TongTienTangCa200 = NhapGioChuNhat * TienTangCa200;
+      const TienTangCa300 = TienCongMotGio * 3;
+      const TongTienTangCa300 = cappedNhapGioLamLe * TienTangCa300;
+      const totalTongTienTangCa = TongTienTangCa150 + TongTienTangCa200 + TongTienTangCa300;
+	  const totalTongSoGioTangCa = NhapGioLamLe + NhapGioChuNhat + NhapGioTangCaThuong;
+      const SoNgayLamDem = cappedNhapNgayLamDem * 30000;
+      const totalSalary = LuongCuc + totalTongTienTangCa + SoNgayLamDem;
+
+      const formatCurrency = (value, decimals = 0) => {
+        if (isNaN(value) || value === null || value === undefined) return '0 đ';
+        return value.toLocaleString('vi-VN', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        }) + ' đ';
+      };
+
+
+      return (
+        <div className="container mx-auto p-4 max-w-4xl">
+         
+          <div className="bg-white p-1 rounded-lg shadow-md border border-gray-300 space-y-2">
+		   <h1 className="text-2xl font-bold text-center text-gray-900 mt-2 mb-4 text-green-600">Bảng Tính Lương Taowine</h1>
+            {/* Phần Nhập Liệu */}
+             <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                  
+				  <p className="text-lg text-center font-bold text-red-600"><strong>Kết Quả Lương Của Bạn: </strong> {formatCurrency(totalSalary)}</p>
+                </div>
+              <div className="border border-gray-300 p-2 bg-white rounded-md">
+                <label className="block text-sm font-medium text-gray-900">Chọn tháng Làm Việc</label>
+                <select
+                  value={month}
+                  onChange={handleMonthChange}
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                >
+                  {[...Array(12).keys()].map((i) => (
+                    <option key={i + 1} value={i + 1}>Tháng {i + 1}</option>
+                  ))}
+                </select>
+				
+				
+				
+				
+				  </div>
+				  
+				  
+				  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-6">
+              <div className="border border-gray-300 p-2 bg-white rounded-md">
+                <label className="block text-sm font-medium text-gray-900">Lương 8H chưa tăng ca: <strong>{formatCurrency(LuongCuc)}</strong></label>
+                <input
+                  type="number"
+                  value={LuongCuc}
+                  onChange={handleNumberInput(setLuongCuc)}
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                  min="0"
+                />
+				
+				
+              </div>
+              <div className="border border-gray-300 p-2 bg-white rounded-md">
+                <label className="block text-sm font-medium text-gray-900">Số (Ngày) làm đêm</label>
+                <input
+                  type="number"
+                  value={NhapNgayLamDem}
+                  onChange={handleNumberInput(setNhapNgayLamDem, daysInMonth)}
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                  min="0"
+                />
+              </div>
+              <div className="border border-gray-300 p-2 bg-white rounded-md">
+                <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca thường</label>
+                <input
+                  type="number"
+                  value={NhapGioTangCaThuong}
+                  onChange={handleNumberInput(setNhapGioTangCaThuong)}
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                  min="0"
+                />
+              </div>
+              <div className="border border-gray-300 p-2 bg-white rounded-md">
+                <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca chủ nhật</label>
+                <input
+                  type="number"
+                  value={NhapGioChuNhat}
+                  onChange={handleNumberInput(setNhapGioChuNhat)}
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                  min="0"
+                />
+              </div>
+              <div className="border border-gray-300 p-2 bg-white rounded-md">
+                <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca lễ</label>
+                <input
+                  type="number"
+                  value={NhapGioLamLe}
+                  onChange={handleNumberInput(setNhapGioLamLe, daysInMonth * 8)}
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                  min="0"
+                />
+            
+              </div>
+              <div className="border border-gray-300 p-2 bg-white rounded-md">
+                <label className="block text-sm font-medium text-gray-900">Lương tính tăng ca<strong> {formatCurrency(LuongCoBanTangCa)}</strong></label>
+                <input
+                  type="number"
+                  value={LuongCoBanTangCa}
+                  onChange={handleNumberInput(setLuongCoBanTangCa)}
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                  min="0"
+                />
+              </div>
+            </div>
+
+            {/* Phần Kết Quả */}
+            <div className="border border-gray-300 p-4 rounded-md bg-gray-100">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4 text-green-600">Tiêu Chuẩn Tính Lương</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Lương 8H chưa tăng ca:</strong> {formatCurrency(LuongCuc)}</p>
+                  </div>
+                  <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Lương tính tăng ca:</strong> {formatCurrency(LuongCoBanTangCa)}</p>
+                  </div>
+                  
+                  <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Tiền công 1 giờ:</strong> {formatCurrency(TienCongMotGio)}</p>
+                  </div>
+                 
+                </div>
+                <div className="space-y-2">
+				 <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Tăng ca thường 150%(1 giờ):</strong> {formatCurrency(TienTangCa150)}</p>
+                  </div>
+				   <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Tăng ca chủ nhật 200%(1 giờ):</strong> {formatCurrency(TienTangCa200)}</p>
+                  </div>
+				   <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Tăng ca lễ 300%(1 giờ):</strong> {formatCurrency(TienTangCa300)}</p>
+                  </div>
+                  
+                </div>
+              </div>
+			  <h2 className="text-lg font-semibold text-gray-900 mt-4 text-green-600">Tiền Lương Làm Việc Trong Tháng</h2>
+              <div className="mt-4 space-y-2">
+			    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Tiền tăng ca 150% ({NhapGioTangCaThuong} giờ):</strong> {formatCurrency(TongTienTangCa150)}</p>
+                  </div>
+                  <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Tiền chủ nhật 200% ({NhapGioChuNhat} giờ):</strong> {formatCurrency(TongTienTangCa200)}</p>
+                  </div>
+                  <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Tiền ngày lễ 300% ({cappedNhapGioLamLe} giờ):</strong> {formatCurrency(TongTienTangCa300)}</p>
+                  </div>
+                 
+                <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                  <p className="text-sm text-gray-900"><strong>Tổng tiền tăng ca ({totalTongSoGioTangCa} giờ)</strong> {formatCurrency(totalTongTienTangCa)}</p>
+                </div>
+				 <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-sm text-gray-900"><strong>Làm đêm ({cappedNhapNgayLamDem} ngày):</strong> {formatCurrency(SoNgayLamDem)}</p>
+                  </div>
+				   <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    <p className="text-yellow-600"><strong>Tổng cộng: </strong> Lương 8H ({formatCurrency(LuongCuc)}) + Tăng ca ({formatCurrency(totalTongTienTangCa)}) + Làm đêm ({formatCurrency(SoNgayLamDem)})</p>
+                  </div>
+                <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                  
+				  <p className="text-lg font-bold text-red-600"><strong>Kết Quả Lương Của Bạn: </strong> {formatCurrency(totalSalary)}</p>
+                </div>
+              </div>
+			  <FAQ />
+            </div>
+
+            {/* Chân trang */}
+            <p className="text-center text-sm text-gray-500 mt-6">
+              Bảng Tính Lương Công Ty Taowine Tạo Bởi <a href="https://www.facebook.com/nghia.tran.939665" target="_blank" className="text-green-600 hover:text-green-800">Nghĩa Anh</a>.
+            </p>
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(
+      <ErrorBoundary>
+        <PayrollCalculator />
+      </ErrorBoundary>
+    );
+  </script>
+</body>
+</html>
