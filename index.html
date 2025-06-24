@@ -43,10 +43,10 @@
 
       const faqs = [
         {
-          question: "Lương 8H chưa tăng ca được tính thế nào?",
+          question: "Tổng lương 26 công được tính thế nào?",
           answer: (
             <div>
-              <p>Lương 8H chưa tăng ca là lương cơ bản cho 8 giờ làm việc 26 ngày được trả khi bạn đi phỏng vấn, tuỳ theo mức lương được trả sẽ khác nhau.</p>
+              <p>Tổng lương 26 công là lương cơ bản cho 8 giờ làm việc 26 ngày được trả khi bạn đi phỏng vấn, tuỳ theo mức lương được trả sẽ khác nhau.</p>
             </div>
           )
         },
@@ -76,7 +76,7 @@
         },
         {
           question: (
-          <a href="buthe.html" className="text-gray-900 hover:text-green-600">
+          <a href="buthe.html" target="_blank" className="text-gray-900 hover:text-green-600">
           Bù Thẻ, Quên Quẹt Thẻ
           </a>
           ),
@@ -111,7 +111,7 @@
         },
         {
           question: (
-            <a href="luxshare.html" className="text-gray-900 hover:text-green-600">
+            <a href="luxshare.html" target="_blank" className="text-gray-900 hover:text-green-600">
               Quyền Hạn Luxshare, Bài Thi
             </a>
           ),
@@ -291,7 +291,7 @@
                
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                   <div className="border border-gray-300 p-2 bg-white rounded-md">
-                    <label className="block text-sm font-medium text-gray-900">Lương 8H chưa tăng ca: <strong>{formatCurrency(LuongCuc)}</strong></label>
+                    <label className="block text-sm font-medium text-gray-900">Nhập lương 26 công: <strong>{formatCurrency(LuongCuc)}</strong></label>
                     <input
                       type="number"
                       value={LuongCuc}
@@ -394,7 +394,7 @@
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
-                        <p className="text-sm text-gray-900"><strong>Lương 8H chưa tăng ca:</strong> {formatCurrency(LuongCuc)}</p>
+                        <p className="text-sm text-gray-900"><strong>Tổng lương 26 công:</strong> {formatCurrency(LuongCuc)}</p>
                       </div>
                       <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                         <p className="text-sm text-gray-900"><strong>Lương tính tăng ca:</strong> {formatCurrency(LuongCoBanTangCa)}</p>
