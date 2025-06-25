@@ -1,1 +1,477 @@
-Loi
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Tính Lương Công Ty Taowine</title>
+  <script src="https://tinhluongtaowine.github.io/react.production.min.js"></script>
+  <script src="https://tinhluongtaowine.github.io/react-dom.production.min.js"></script>
+  <script src="https://tinhluongtaowine.github.io/babel.min.js"></script>
+  <script src="https://tinhluongtaowine.github.io/css.js"></script>
+  <meta property="og:title" content="Bảng Tính Lương Công Ty Taowine" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tinhluongtaowine.github.io/index.html" />
+  <meta property="og:image" content="avatar.png" />
+  <meta property="og:description" content="Tính lương nhanh chóng,tính tăng ca,giờ làm đêm dễ dàng cho nhân viên Taowine!" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JJH8DYST0Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JJH8DYST0Y');
+</script>
+
+</head>
+<body className="bg-gray-200 font-sans">
+  <div id="root"></div>
+  <script type="text/babel">
+    class ErrorBoundary extends React.Component {
+      state = { error: null };
+      static getDerivedStateFromError(error) {
+        return { error: error.message };
+      }
+      render() {
+        if (this.state.error) {
+          return (
+            <div className="container mx-auto p-4 max-w-4xl text-red-600 text-center">
+              <h1 className="text-2xl font-bold">Lỗi</h1>
+              <p>{this.state.error}</p>
+              <p>Vui lòng thử tải lại trang hoặc kiểm tra kết nối mạng.</p>
+            </div>
+          );
+        }
+        return this.props.children;
+      }
+    }
+
+    const FAQ = () => {
+      const [openIndex, setOpenIndex] = React.useState(null);
+
+      const faqs = [
+        {
+          question: "Tổng lương 26 công được tính thế nào?",
+          answer: (
+            <div>
+              <p>Tổng lương 26 công là lương cơ bản cho 8 giờ làm việc 26 ngày được trả khi bạn đi phỏng vấn, tuỳ theo mức lương được trả sẽ khác nhau.</p>
+            </div>
+          )
+        },
+        {
+          question: "Tiền tăng ca được tính ra sao?",
+          answer: (
+            <div>
+              <p>Tiền tăng ca dựa trên lương tính tăng ca hiện tại của công ty là bao nhiêu, ví dụ 7.000.000 chia cho 26 hoặc 27 ngày làm việc, rồi tính theo tỷ lệ 150%, 200%, hoặc 300%.</p>
+            </div>
+          )
+        },
+        {
+          question: "Số ngày làm đêm để làm gì?",
+          answer: (
+            <div>
+              <p>Mỗi ngày làm đêm được phụ cấp 30,000 VND ghi số ngày làm đêm sẽ được cộng số tiền tương ứng</p>
+            </div>
+          )
+        },
+        {
+          question: "Tại sao phải chọn tháng làm việc?",
+          answer: (
+            <div>
+              <p>Tùy tháng có 30 hoặc 31 ngày nên cách tính sẽ khác nhau,chọn đúng tháng sẽ được tính tự động dựa trên tháng bạn chọn.</p>
+            </div>
+          )
+        },
+        {
+          question: (
+          <a href="buthe.html" target="_blank" className="text-gray-900 hover:text-green-600">
+          Bù Thẻ, Quên Quẹt Thẻ
+          </a>
+          ),
+          link: "buthe.html",
+          answer: null
+          
+        },
+		
+		
+		{
+           question: (
+                 <a href="xinnghi.html" target="_blank" className="text-gray-900 hover:text-green-600">
+              Hướng Dẫn Xin Nghỉ Phép
+                   </a>
+           
+           ),
+           link: "xinnghi.html",
+           answer: null
+        },
+		
+        {
+          question: (
+          
+              <a href="appchamcong.html" target="_blank" className="text-gray-900 hover:text-green-600">
+                
+              Tải App Chấm Công
+              </a>
+            
+          ),
+          link: "appchamcong.html",
+          answer: null
+        },
+        {
+          question: (
+            <a href="luxshare.html" target="_blank" className="text-gray-900 hover:text-green-600">
+              Quyền Hạn Luxshare, Bài Thi
+            </a>
+          ),
+          link: "luxshare.html",
+          answer: null
+        },
+      ];
+
+      const toggleFAQ = (index) => {
+        setOpenIndex(openIndex === index ? null : index);
+      };
+
+     return (
+        <div className="mt-6 bg-white p-4 rounded-lg shadow-md border border-gray-300">
+          <h2 className="text-lg font-semibold text-green-600 mb-4">Câu Hỏi Thường Gặp</h2>
+          {faqs.map((faq, index) => (
+            <div key={index} className="border border-gray-300 mb-2 rounded-md bg-white">
+              {faq.link ? (
+                <a
+                  href={faq.link}
+                  target="_blank"
+                  className="block w-full text-left p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                >
+                  {faq.question}
+                </a>
+              ) : (
+                <>
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full text-left p-3 text-sm font-medium text-gray-900 flex justify-between items-center hover:bg-gray-50"
+                  >
+                    <span>{faq.question}</span>
+                    <span className="text-green-600">{openIndex === index ? '−' : '+'}</span>
+                  </button>
+                  {openIndex === index && faq.answer && (
+                    <div className="p-3 text-sm text-gray-700 bg-gray-100">
+                      {faq.answer}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    const LinksTab = () => {
+      const links = [
+        
+        { name: "Trang chủ ký bảo mật Luxshare", url: "https://m.luxshare-ict.com" },
+        { name: "Link làm bài thi luxshare", url: "https://ks.wjx.top/vm/h4IcVmb.aspx?zarsrc=1303&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo&gidzl=nStp6gsmp334qleQgARCCyNR_1-pz9bWqjhwHBoapZhTt_eUjQ74O8dTfXpYz9Cqsztn7ZLOJ0SThhB7DG" },
+        { name: "App chấm công EMobile7 Android", url: "https://emobile.weaver.com.cn/customer/EM7/produce.html" },
+        { name: "App chấm công EMobile7 IOS", url: "https://apps.apple.com/cn/app/emobile7/id1437702418" },
+		 { name: "App tính lương Android", url: "https://tinhluongtaowine.github.io/apptinhluong.apk" },
+		  { name: "Bù Thẻ,Quên Quẹt Thẻ", url: "/buthe.html" },
+		   { name: "Xin Nghỉ Phép", url: "xinnghi.html" },
+		   { name: "Hướng dẫn ký bảo mật Luxshare", url: "luxshare.html" },
+      ];
+
+      return (
+        <div className="mt-6 bg-white p-4 rounded-lg shadow-md border border-gray-300">
+          <h2 className="text-lg font-semibold text-green-600 mb-4">Liên Kết Hữu Ích</h2>
+          <ul className="space-y-2">
+            {links.map((link, index) => (
+              <li key={index} className="border border-gray-300 p-2 rounded-md bg-gray-100">
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="nofollow"
+                  className="text-green-600 hover:text-green-800 underline text-sm"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    };
+
+    const PayrollCalculator = () => {
+      const [month, setMonth] = React.useState(new Date().getMonth() + 0);
+      const [NhapNgayLamDem, setNhapNgayLamDem] = React.useState(0);
+      const [NhapGioTangCaThuong, setNhapGioTangCaThuong] = React.useState(0);
+      const [NhapGioChuNhat, setNhapGioChuNhat] = React.useState(0);
+      const [NhapGioLamLe, setNhapGioLamLe] = React.useState(0);
+      const [LuongCuc, setLuongCuc] = React.useState(10000000);
+      const [LuongCoBanTangCa, setLuongCoBanTangCa] = React.useState(7000000);
+      const [activeTab, setActiveTab] = React.useState('payroll');
+
+      const getDaysInMonth = (month) => {
+        const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        return days[month - 1];
+      };
+
+      const getSoNgayCuaThang = (month) => {
+        const SoNgayCuaThang = [27, 26, 27, 26, 27, 26, 27, 27, 26, 27, 26, 27];
+        return SoNgayCuaThang[month - 1];
+      };
+
+      const daysInMonth = getDaysInMonth(month);
+      const SoNgayCuaThang = getSoNgayCuaThang(month);
+
+      const handleNumberInput = (setter, max = Infinity) => (e) => {
+        const value = e.target.value;
+        if (value === '') {
+          setter('');
+        } else if (!isNaN(value) && Number(value) >= 0) {
+          const cappedValue = Math.min(Number(value), max);
+          setter(cappedValue);
+        }
+      };
+
+      const handleMonthChange = (e) => {
+        setMonth(Number(e.target.value));
+      };
+
+      const cappedNhapNgayLamDem = Math.min(NhapNgayLamDem, daysInMonth);
+      const cappedNhapGioLamLe = Math.min(NhapGioLamLe, daysInMonth * 8);
+
+      const TienCongMotNgay = (SoNgayCuaThang) > 0 ? LuongCoBanTangCa / (SoNgayCuaThang) : 0;
+      const TienCongMotGio = TienCongMotNgay / 8;
+      const TienTangCa150 = TienCongMotGio * 1.5;
+      const TongTienTangCa150 = NhapGioTangCaThuong * TienTangCa150;
+      const TienTangCa200 = TienCongMotGio * 2;
+      const TongTienTangCa200 = NhapGioChuNhat * TienTangCa200;
+      const TienTangCa300 = TienCongMotGio * 3;
+      const TongTienTangCa300 = cappedNhapGioLamLe * TienTangCa300;
+      const totalTongTienTangCa = TongTienTangCa150 + TongTienTangCa200 + TongTienTangCa300;
+      const totalTongSoGioTangCa = NhapGioLamLe + NhapGioChuNhat + NhapGioTangCaThuong;
+      const SoNgayLamDem = cappedNhapNgayLamDem * 30000;
+      const totalSalary = LuongCuc + totalTongTienTangCa + SoNgayLamDem;
+
+      const formatCurrency = (value, decimals = 0) => {
+        if (isNaN(value) || value === null || value === undefined) return '0 đ';
+        return value.toLocaleString('vi-VN', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        }) + ' đ';
+      };
+
+      return (
+        <div className="container mx-auto p-1 max-w-4xl">
+          <div className="bg-white p-1 rounded-lg shadow-md border border-gray-300 space-y-2">
+            <h1 className="text-2xl font-bold text-center py-6 bg-pink-500 text-white">Bảng Tính Lương Taowine</h1>
+            
+            <div className="flex border-b border-gray-300">
+              <button
+                onClick={() => setActiveTab('payroll')}
+                className={`flex-1 py-2 px-4 text-center font-medium text-sm ${
+                  activeTab === 'payroll'
+                    ? 'border-b-2 border-green-600 text-green-600 bg-gray-50'
+                    : 'text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                Bảng Tính Lương
+              </button>
+              <button
+                onClick={() => setActiveTab('faq')}
+                className={`flex-1 py-2 px-4 text-center font-medium text-sm ${
+                  activeTab === 'faq'
+                    ? 'border-b-2 border-green-600 text-green-600 bg-gray-50'
+                    : 'text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                Câu Hỏi Thường Gặp
+              </button>
+			  
+            </div>
+
+            {activeTab === 'payroll' && (
+              <div>
+                <div className="border border-gray-300 my-2 p-2 bg-gray-100 rounded-md">
+                  <p className="text-lg text-center font-bold text-red-600"><strong>Kết Quả Lương Của Bạn: </strong> {formatCurrency(totalSalary)}</p>
+                </div>
+               
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                  <div className="border border-gray-300 p-2 bg-white rounded-md">
+                    <label className="block text-sm font-medium text-gray-900">Nhập lương 26 công: <strong>{formatCurrency(LuongCuc)}</strong></label>
+                    <input
+                      type="number"
+                      value={LuongCuc}
+                      onChange={handleNumberInput(setLuongCuc)}
+                      className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                      min="0"
+                    />
+                  </div>
+                  <div className="border border-gray-300 p-2 bg-white rounded-md">
+                    <label className="block text-sm font-medium text-gray-900">Số (Ngày) làm đêm</label>
+                    <input
+                      type="number"
+                      value={NhapNgayLamDem}
+                      onChange={handleNumberInput(setNhapNgayLamDem, daysInMonth)}
+                      className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                      min="0"
+                    />
+                  </div>
+                  <div className="border border-gray-300 p-2 bg-white rounded-md">
+                    <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca thường</label>
+                    <input
+                      type="number"
+                      value={NhapGioTangCaThuong}
+                      onChange={handleNumberInput(setNhapGioTangCaThuong)}
+                      className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                      min="0"
+                    />
+                  </div>
+                  <div className="border border-gray-300 p-2 bg-white rounded-md">
+                    <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca chủ nhật</label>
+                    <input
+                      type="number"
+                      value={NhapGioChuNhat}
+                      onChange={handleNumberInput(setNhapGioChuNhat)}
+                      className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                      min="0"
+                    />
+                  </div>
+                  <div className="border border-gray-300 p-2 bg-white rounded-md">
+                    <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca lễ</label>
+                    <input
+                      type="number"
+                      value={NhapGioLamLe}
+                      onChange={handleNumberInput(setNhapGioLamLe, daysInMonth * 8)}
+                      className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                      min="0"
+                    />
+                  </div>
+                  <div className="border border-gray-300 p-2 bg-white rounded-md">
+                    <label className="block text-sm font-medium text-gray-900">Lương tính tăng ca<strong> {formatCurrency(LuongCoBanTangCa)}</strong></label>
+                    <input
+                      type="number"
+                      value={LuongCoBanTangCa}
+                      onChange={handleNumberInput(setLuongCoBanTangCa)}
+                      className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                      min="0"
+                    />
+                  </div>
+                </div>
+
+                   <div className="border border-gray-300 my-2 p-2 bg-white rounded-md">
+                  <label className="block text-sm font-medium text-gray-900">Chọn tháng Làm Việc</label>
+                  <select
+                    value={month}
+                    onChange={handleMonthChange}
+                    className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white"
+                  >
+                    {[...Array(12).keys()].map((i) => (
+                      <option key={i + 1} value={i + 1}>Tháng {i + 1}</option>
+                    ))}
+                  </select>
+                </div>
+		      
+                <div className="border border-gray-300 p-4 rounded-md bg-gray-100">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-4 text-green-600">Tiền Lương Làm Việc Trong Tháng</h2>
+                  <div className="mt-4 space-y-2">
+                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                      <p className="text-sm text-gray-900"><strong>Tiền tăng ca 150% ({NhapGioTangCaThuong} giờ):</strong> {formatCurrency(TongTienTangCa150)}</p>
+                    </div>
+                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                      <p className="text-sm text-gray-900"><strong>Tiền chủ nhật 200% ({NhapGioChuNhat} giờ):</strong> {formatCurrency(TongTienTangCa200)}</p>
+                    </div>
+                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                      <p className="text-sm text-gray-900"><strong>Tiền ngày lễ 300% ({cappedNhapGioLamLe} giờ):</strong> {formatCurrency(TongTienTangCa300)}</p>
+                    </div>
+                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                      <p className="text-sm text-gray-900"><strong>Tổng tiền tăng ca ({totalTongSoGioTangCa} giờ)</strong> {formatCurrency(totalTongTienTangCa)}</p>
+                    </div>
+                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                      <p className="text-sm text-gray-900"><strong>Làm đêm ({cappedNhapNgayLamDem} ngày):</strong> {formatCurrency(SoNgayLamDem)}</p>
+                    </div>
+                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                      <p className="text-yellow-600"><strong>Tổng cộng: </strong> Lương 8H ({formatCurrency(LuongCuc)}) + Tăng ca ({formatCurrency(totalTongTienTangCa)}) + Làm đêm ({formatCurrency(SoNgayLamDem)})</p>
+                    </div>
+                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                      <p className="text-lg font-bold text-red-600"><strong>Kết Quả Lương Của Bạn: </strong> {formatCurrency(totalSalary)}</p>
+                    </div>
+                  </div>
+                  <h2 className="text-lg font-semibold text-gray-900 my-4 text-green-600">Tiêu Chuẩn Tính Lương</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Tổng lương 26 công:</strong> {formatCurrency(LuongCuc)}</p>
+                      </div>
+                      <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Lương tính tăng ca:</strong> {formatCurrency(LuongCoBanTangCa)}</p>
+                      </div>
+                      <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Tiền công 1 giờ:</strong> {formatCurrency(TienCongMotGio)}</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Tăng ca thường 150%(1 giờ):</strong> {formatCurrency(TienTangCa150)}</p>
+                      </div>
+                      <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Tăng ca chủ nhật 200%(1 giờ):</strong> {formatCurrency(TienTangCa200)}</p>
+                      </div>
+                      <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Tăng ca lễ 300%(1 giờ):</strong> {formatCurrency(TienTangCa300)}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'faq' && (
+              <FAQ />
+            )}
+
+            {activeTab === 'links' && (
+              <LinksTab />
+            )}
+
+
+
+
+              <div className="flex border-b border-gray-300">
+
+
+              <button
+                onClick={() => setActiveTab('links')}
+                className={`flex-1 py-2 px-4 text-center font-medium text-sm ${
+                  activeTab === 'links'
+                    ? 'border-b-2 border-green-600 text-green-600 bg-gray-50'
+                    : 'text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                Liên Kết
+              </button>
+			  <a href="https://tinhluongtaowine.github.io/apptinhluong.apk" target="_blank" className={`flex-1 py-2 px-4 text-center font-medium text-sm text-gray-900 hover:bg-gray-50`} >
+              Tải App Tính Lương </a>
+			 
+			  </div>
+
+            <p className="text-center text-sm text-gray-500 mt-6">
+              Bảng Tính Lương Công Ty Taowine Tạo Bởi <a href="https://www.facebook.com/nghia.tran.939665" target="_blank" className="text-green-600 hover:text-green-800">Nghĩa Anh</a>.
+            </p>
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(
+      <ErrorBoundary>
+        <PayrollCalculator />
+      </ErrorBoundary>
+    );
+  </script>
+</body>
+</html>
