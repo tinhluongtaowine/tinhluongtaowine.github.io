@@ -840,7 +840,7 @@
         async function loadHanVietData() {
             if (hanVietData) return;
             try {
-                const response = await fetch('./hanviet.json');
+                const response = await fetch('../hanviet.json');
                 if (!response.ok) throw new Error('Failed to load hanviet.json');
                 hanVietData = await response.json();
             } catch (error) {
@@ -852,7 +852,7 @@
         async function loadDataIndex() {
             if (dataIndex) return;
             try {
-                const response = await fetch('./index.json');
+                const response = await fetch('../index.json');
                 if (!response.ok) throw new Error('Failed to load index.json');
                 dataIndex = await response.json();
             } catch (error) {
@@ -873,7 +873,7 @@
             }
 
             try {
-                const response = await fetch(`./${fileName}`);
+                const response = await fetch(`../${fileName}`);
                 if (!response.ok) throw new Error(`Failed to load ${fileName}`);
                 const data = await response.json();
                 loadedData[fileName] = data;
