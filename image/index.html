@@ -873,7 +873,7 @@
             }
 
             try {
-                const response = await fetch(`./${fileName}`);
+                const response = await fetch(`./data/${fileName}`);
                 if (!response.ok) throw new Error(`Failed to load ${fileName}`);
                 const data = await response.json();
                 loadedData[fileName] = data;
@@ -1005,55 +1005,13 @@
                         ${componentsHtml}
                     </div>
                     <div class="writer-controls" id="controls-${char}">
-                        <button class="control-btn">🔄 Vẽ lại</button>
-                        <button class="control-btn">✏️ Tập viết</button>
-                        <button class="control-btn">🔊 Nghe</button>
+                        <button class="control-btn play-btn">🔄 Vẽ lại</button>
+                        <button class="control-btn quiz-btn">✏️ Tập viết</button>
+                        <button class="control-btn audio-btn">🔊 Nghe</button>
                     </div>
                     ${examplesHtml}
                 </div>
             `;
-            
-            setTimeout(() => {
-                const writer = HanziWriter.create(`writer-${char}`, char, { 
-                    width: 220, 
-                    height: 220, 
-                    padding: 10, 
-                    strokeColor: '#333', 
-                    radicalColor: '#168F16', 
-                    showOutline: true, 
-                    showCharacter: true, 
-                    strokeAnimationSpeed: 1, 
-                    delayBetweenStrokes: 200 
-                }); 
-                
-                writer.animateCharacter(); 
-                
-                const controls = writerDiv.querySelector(`#controls-${char}`); 
-                controls.querySelector('button:nth-child(1)').addEventListener('click', () => { 
-                    writer.animateCharacter(); 
-                }); 
-                controls.querySelector('button:nth-child(2)').addEventListener('click', () => { 
-                    writer.quiz({ 
-                        showHintAfterMisses: 3, 
-                        highlightOnComplete: true, 
-                        onComplete: function() { 
-                            alert('🎉 Tuyệt vời! Bạn đã viết đúng chữ ' + char); 
-                        } 
-                    }); 
-                }); 
-                controls.querySelector('button:nth-child(3)').addEventListener('click', () => { 
-                    playAudio(char); 
-                }); 
-            
-                const wordItems = writerDiv.querySelectorAll('.word-item'); 
-                wordItems.forEach(item => { 
-                    item.addEventListener('click', async function() { 
-                        const chinese = this.querySelector('.word-chinese').textContent; 
-                        document.getElementById('input-char').value = chinese; 
-                        await triggerSearch(chinese); 
-                    }); 
-                });
-            }, 0);
             
             return writerDiv;
         }
@@ -1080,38 +1038,79 @@
             }
             writerSection.appendChild(contentContainer);
             
+            // Scroll to the section after it's been displayed
             setTimeout(() => {
                 writerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 50);
 
-            let firstCharContent = null;
-            let firstTabBtn = null;
-            
-            for (const char of uniqueChars) {
+            // Fetch and append all character content first
+            const contentPromises = uniqueChars.map(async (char) => {
                 const charDataFile = await fetchCharacterDataFile(char);
                 const charData = charDataFile ? charDataFile[char] : null;
-
                 const tabBtn = document.createElement('button');
                 tabBtn.className = 'char-tab-btn';
                 tabBtn.textContent = char;
                 tabBtn.dataset.char = char;
                 tabsContainer.appendChild(tabBtn);
-
                 const charContent = createCharacterContent(char, charData);
                 charContent.id = `content-${char}`;
                 contentContainer.appendChild(charContent);
+                return { char, charContent, tabBtn };
+            });
+
+            const results = await Promise.all(contentPromises);
+
+            // Activate the first tab and content
+            if (results.length > 0) {
+                const firstResult = results[0];
+                firstResult.charContent.classList.add('active');
+                if (firstResult.tabBtn) firstResult.tabBtn.classList.add('active');
+            }
+
+            // Initialize HanziWriter and event listeners for each character
+            results.forEach(({ char, charContent }) => {
+                const writer = HanziWriter.create(`writer-${char}`, char, { 
+                    width: 220, 
+                    height: 220, 
+                    padding: 10, 
+                    strokeColor: '#333', 
+                    radicalColor: '#168F16', 
+                    showOutline: true, 
+                    showCharacter: true, 
+                    strokeAnimationSpeed: 1, 
+                    delayBetweenStrokes: 200 
+                }); 
                 
-                if (!firstCharContent) {
-                    firstCharContent = charContent;
-                    firstTabBtn = tabBtn;
-                }
-            }
+                writer.animateCharacter(); 
 
-            if (firstCharContent) {
-                firstCharContent.classList.add('active');
-                if (firstTabBtn) firstTabBtn.classList.add('active');
-            }
+                const controls = charContent.querySelector(`#controls-${char}`);
+                controls.querySelector('.play-btn').addEventListener('click', () => { 
+                    writer.animateCharacter(); 
+                }); 
+                controls.querySelector('.quiz-btn').addEventListener('click', () => { 
+                    writer.quiz({ 
+                        showHintAfterMisses: 3, 
+                        highlightOnComplete: true, 
+                        onComplete: function() { 
+                            alert('🎉 Tuyệt vời! Bạn đã viết đúng chữ ' + char); 
+                        } 
+                    }); 
+                }); 
+                controls.querySelector('.audio-btn').addEventListener('click', () => { 
+                    playAudio(char); 
+                });
+            
+                const wordItems = charContent.querySelectorAll('.word-item'); 
+                wordItems.forEach(item => { 
+                    item.addEventListener('click', async function() { 
+                        const chinese = this.querySelector('.word-chinese').textContent; 
+                        document.getElementById('input-char').value = chinese; 
+                        await triggerSearch(chinese); 
+                    }); 
+                });
+            });
 
+            // Add listener for tab clicks
             tabsContainer.addEventListener('click', (event) => {
                 const target = event.target;
                 if (target.classList.contains('char-tab-btn')) {
@@ -1178,8 +1177,9 @@
         } 
         
         document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('audio-btn')) {
-                const textToSpeak = event.target.dataset.text;
+            const target = event.target;
+            if (target.classList.contains('audio-btn') && !target.classList.contains('control-btn')) {
+                const textToSpeak = target.dataset.text;
                 playAudio(textToSpeak);
             }
         });
