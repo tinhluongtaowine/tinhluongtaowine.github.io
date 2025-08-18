@@ -1,0 +1,34 @@
+{
+  "木": {
+    "hanviet": "Mộc",
+    "words": [
+      {
+        "hanzi": "木头",
+        "pinyin": "mùtou",
+        "meaning": "gỗ"
+      }
+    ],
+    "sentences": [
+      {
+        "chinese": "这是一块木头。",
+        "vietnamese": "Đây là một khúc gỗ."
+      }
+    ]
+  },
+  "林": {
+    "hanviet": "Lâm",
+    "words": [
+      {
+        "hanzi": "森林",
+        "pinyin": "sēnlín",
+        "meaning": "rừng"
+      }
+    ],
+    "sentences": [
+      {
+        "chinese": "我们在森林里散步。",
+        "vietnamese": "Chúng tôi đi dạo trong rừng."
+      }
+    ]
+  }
+}
