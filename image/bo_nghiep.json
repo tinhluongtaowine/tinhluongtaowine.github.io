@@ -1,0 +1,39 @@
+{
+  "人": {
+    "hanviet": "Nhân",
+    "words": [
+      {
+        "hanzi": "人",
+        "pinyin": "rén",
+        "meaning": "người"
+      },
+      {
+        "hanzi": "人名",
+        "pinyin": "rénmíng",
+        "meaning": "tên người"
+      }
+    ],
+    "sentences": [
+      {
+        "chinese": "这个人是谁？",
+        "vietnamese": "Người này là ai?"
+      }
+    ]
+  },
+  "休": {
+    "hanviet": "Hưu",
+    "words": [
+      {
+        "hanzi": "休息",
+        "pinyin": "xiūxi",
+        "meaning": "nghỉ ngơi"
+      }
+    ],
+    "sentences": [
+      {
+        "chinese": "我需要休息一下。",
+        "vietnamese": "Tôi cần nghỉ ngơi một chút."
+      }
+    ]
+  }
+}
