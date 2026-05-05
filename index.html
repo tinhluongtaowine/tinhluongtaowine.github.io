@@ -326,7 +326,7 @@
                     />
                   </div>
                   <div className="border border-gray-300 p-2 bg-white rounded-md">
-                    <label className="block text-sm font-medium text-gray-900">Số (Ngày) làm đêm</label>
+                    <label className="block text-sm font-medium text-gray-900">Ngày làm đêm +30%</label>
                     <input
                       type="number"
                       value={NhapNgayLamDem}
@@ -336,7 +336,7 @@
                     />
                   </div>
                   <div className="border border-gray-300 p-2 bg-white rounded-md">
-                    <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca thường</label>
+                    <label className="block text-sm font-medium text-gray-900">Giờ tăng ca thường 150%</label>
                     <input
                       type="number"
                       value={NhapGioTangCaThuong}
@@ -346,7 +346,7 @@
                     />
                   </div>
                   <div className="border border-gray-300 p-2 bg-white rounded-md">
-                    <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca chủ nhật</label>
+                    <label className="block text-sm font-medium text-gray-900">Giờ tăng ca chủ nhật 200%</label>
                     <input
                       type="number"
                       value={NhapGioChuNhat}
@@ -356,7 +356,7 @@
                     />
                   </div>
                   <div className="border border-gray-300 p-2 bg-white rounded-md">
-                    <label className="block text-sm font-medium text-gray-900">(Giờ) tăng ca lễ</label>
+                    <label className="block text-sm font-medium text-gray-900">Giờ tăng ca lễ 300%</label>
                     <input
                       type="number"
                       value={NhapGioLamLe}
@@ -406,7 +406,7 @@
                       <p className="text-sm text-gray-900"><strong>Tổng tăng ca ({totalTongSoGioTangCa} giờ)</strong> {formatCurrency(totalTongTienTangCa)}</p>
                     </div>
                     <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
-                      <p className="text-sm text-gray-900"><strong>Làm đêm 30% ({cappedNhapNgayLamDem * 6} giờ):</strong> {formatCurrency(SoNgayLamDem)}</p>
+                      <p className="text-sm text-gray-900"><strong>Làm đêm +30% ({cappedNhapNgayLamDem * 6} giờ):</strong> {formatCurrency(SoNgayLamDem)}</p>
                     </div>
                     <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-yellow-600"><strong>Tổng cộng: </strong> Lương 8H ({formatCurrency(LuongCuc)}) + Tăng ca ({formatCurrency(totalTongTienTangCa)}) + Làm đêm ({formatCurrency(SoNgayLamDem)})</p>
