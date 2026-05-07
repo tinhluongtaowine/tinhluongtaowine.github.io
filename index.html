@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bảng Tính Lương</title>
-  <script src="https://tinhluongtaowine.github.io/data/react.production.min.js"></script>
-  <script src="https://tinhluongtaowine.github.io/data/react-dom.production.min.js"></script>
-  <script src="https://tinhluongtaowine.github.io/data/babel.min.js"></script>
-  <script src="https://tinhluongtaowine.github.io/data/css.js"></script>
+  <script src="https://bangtinhluong.vercel.app/data/react.production.min.js"></script>
+  <script src="https://bangtinhluong.vercel.app/data/react-dom.production.min.js"></script>
+  <script src="https://bangtinhluong.vercel.app/data/babel.min.js"></script>
+  <script src="https://bangtinhluong.vercel.app/data/css.js"></script>
   <meta property="og:title" content="Bảng Tính Lương" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="/index.html" />
@@ -220,7 +220,7 @@
 	  
 	  
 	  
-      const [LuongCuc, setLuongCuc] = React.useState(14000000);
+      const [LuongCuc, setLuongCuc] = React.useState(10000000);
       const [LuongCoBanTangCa, setLuongCoBanTangCa] = React.useState(7000000);
       const [activeTab, setActiveTab] = React.useState('payroll');
 
@@ -499,7 +499,7 @@
 					
 					 {NhapNgayChuNhat > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Tiền chủ nhật đêm +70% ({NhapNgayChuNhat} ngày = {NhapNgayChuNhat * 6} giờ):</strong> {formatCurrency(TongChuNhatDem270)}</p>
-					  <p className="text-xs text-gray-500 mt-0.5">💡 Làm đêm được 270% mỗi ngày tính 6 giờ đêm 22h–5h,khung giờ này  {TienTangCa200} {TienChuNhatDem270} {TongTienChuNhat} bên trên hiện thị 70% số tiền của {NhapNgayChuNhat} ngày</p>
+					  <p className="text-xs text-gray-500 mt-0.5">💡 Làm đêm được 270% mỗi ngày tính 6 giờ đêm 22h–5h,bên trên hiện thị 70% số tiền của {NhapNgayChuNhat} ngày</p>
                     </div>}
 					
 					
