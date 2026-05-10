@@ -335,9 +335,10 @@
 
             {activeTab === 'payroll' && (
               <div>
-                <div className="border border-gray-300 my-2 p-2 bg-gray-100 rounded-md">
+                
+				{totalSalary > 10000000 &&<div className="border border-gray-300 my-2 p-2 bg-gray-100 rounded-md">
                   <p className="text-lg text-center font-bold text-red-600"><strong>Kết Quả Lương Của Bạn: </strong> {formatCurrency(totalSalary)}</p>
-                </div>
+                </div>}
                
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                   <div className="border border-gray-300 p-2 bg-white rounded-md">
@@ -473,51 +474,58 @@
                   <div className="mt-4 space-y-2">
 				  
 				  
-                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                   {NhapGioTangCaThuong > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Tiền tăng ca 150% ({NhapGioTangCaThuong} giờ):</strong> {formatCurrency(TongTienTangCa150)}</p>
-                    </div>
+                    </div>}
 					
-					<div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+					{NhapGioTangCaDem > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Tiền tăng ca đêm 210% ({NhapGioTangCaDem} giờ):</strong> {formatCurrency(TongTienCaDem210)}</p>
-                    </div>
+                    </div>}
 					
 					
-                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    {NhapGioChuNhat > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Tiền chủ nhật 200% ({NhapGioChuNhat} giờ):</strong> {formatCurrency(TongTienTangCa200)}</p>
-                    </div>
+                    </div>}
 					
 				
 					
 					
 					 {NhapNgayChuNhat > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Tiền chủ nhật đêm +70% ({NhapNgayChuNhat} ngày = {NhapNgayChuNhat * 6} giờ):</strong> {formatCurrency(TongChuNhatDem270)}</p>
-					  <p className="text-xs text-gray-500 mt-0.5">💡 Làm đêm được 270% mỗi ngày tính 6 giờ đêm 22h–5h,bên trên hiện thị 70% số tiền của {NhapNgayChuNhat} ngày</p>
+					  <p className="text-xs text-gray-500 mt-0.5">💡 Làm đêm chủ nhật được 270% từ 22h–5h,bên trên hiện thị 70% số tiền làm đêm của {NhapNgayChuNhat} ngày, mỗi 1 giờ được thêm {formatCurrency((TienCongMotGio * 2.7) - TienTangCa200)} nhân với {NhapNgayChuNhat * 6} giờ </p>
                     </div>}
 					
 					
 					
-                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    {cappedNhapGioLamLe > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Tiền ngày lễ 300% ({cappedNhapGioLamLe} giờ):</strong> {formatCurrency(TongTienTangCa300)}</p>
-                    </div>
+                    </div>}
 					
 					
-					<div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+					{cappedNhapNgayLamLe > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Tiền ngày lễ đêm +90% ({cappedNhapNgayLamLe} ngày = {cappedNhapNgayLamLe * 6} giờ):</strong> {formatCurrency(TongLeDem390)}</p>
-                    </div>
+					  <p className="text-xs text-gray-500 mt-0.5">💡 Làm lễ đêm được 290% từ 22h–5h,bên trên hiện thị 70% số tiền làm đêm của {cappedNhapNgayLamLe} ngày, mỗi 1 giờ được thêm {formatCurrency((TienCongMotGio * 3.9) - TienTangCa300)} nhân với {cappedNhapNgayLamLe * 6} giờ </p>
+                    </div>}
 					
 					
-                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    {totalTongSoGioTangCa > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Tổng tăng ca ({totalTongSoGioTangCa} giờ)</strong> {formatCurrency(totalTongTienTangCa)}</p>
-                    </div>
-                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                    </div>}
+					
+                    {cappedNhapNgayLamDem > 0 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-sm text-gray-900"><strong>Làm đêm +30% ({cappedNhapNgayLamDem} Ngày = {cappedNhapNgayLamDem * 6} giờ):</strong> {formatCurrency(SoNgayLamDem)}</p>
-                    </div>
+					  <p className="text-xs text-gray-500 mt-0.5">💡 Làm đêm được 130% từ 22h–5h,bên trên hiện thị 70% số tiền làm đêm của {cappedNhapNgayLamDem} ngày, mỗi 1 giờ được thêm {formatCurrency(TienLamDem130)} nhân với {cappedNhapNgayLamDem * 6} giờ</p>
+                    </div>}
+					
                     <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-yellow-600"><strong>Tổng cộng: </strong> Lương 8H ({formatCurrency(LuongCuc)}) + Tăng ca ({formatCurrency(totalTongTienTangCa)}) + Làm đêm ({formatCurrency(SoNgayLamDem)})</p>
                     </div>
-                    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+					
+					
+                     {totalSalary > 10000000 && <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                       <p className="text-lg font-bold text-red-600"><strong>Kết Quả Lương Của Bạn: </strong> {formatCurrency(totalSalary)}</p>
-                    </div>
+                    </div>}
+					
                   </div>
 				  
 				  
@@ -545,19 +553,25 @@
                       </div>
 					  
 					  
+					    	  
+					 <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Tiền làm đêm 130%(1 giờ):</strong> {formatCurrency(TienLamDem130)}</p>
+                      </div>
+					  
 					  
 					    <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
                         <p className="text-sm text-gray-900"><strong>Tăng ca thường 150%(1 giờ):</strong> {formatCurrency(TienTangCa150)}</p>
                       </div>  
 					  
-					  <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
-                        <p className="text-sm text-gray-900"><strong>Tăng ca chủ nhật 200%(1 giờ):</strong> {formatCurrency(TienTangCa200)}</p>
-                      </div>
-					 
-					 
+					  
+					
+					  
+                    
 					 <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
-                        <p className="text-sm text-gray-900"><strong>Tăng ca lễ 300%(1 giờ):</strong> {formatCurrency(TienTangCa300)}</p>
+                        <p className="text-sm text-gray-900"><strong>Tăng ca đêm 210%(1 giờ):</strong> {formatCurrency(TienTangCaDem210)}</p>
                       </div>
+					  
+					
 					  
                     </div>
 					
@@ -570,20 +584,14 @@
                         <p className="text-sm text-gray-900"><strong>Lương tính tăng ca:</strong> {formatCurrency(LuongCoBanTangCa)}</p>
                       </div>
 					  
-					  
-					 <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
-                        <p className="text-sm text-gray-900"><strong>Ngày làm đêm 130%(1 giờ):</strong> {formatCurrency(TienLamDem130)}</p>
-                      </div>
-					  
-                    
-					 <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
-                        <p className="text-sm text-gray-900"><strong>Tăng ca đêm 210%(1 giờ):</strong> {formatCurrency(TienTangCaDem210)}</p>
-                      </div>
-					  
+				
 					    
 					  
 					  
                       
+					   <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Tăng ca chủ nhật 200%(1 giờ):</strong> {formatCurrency(TienTangCa200)}</p>
+                      </div>
 					  
 					  
 					  <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
@@ -591,7 +599,12 @@
                       </div>
 					  
 					  
-					  
+					   
+					 
+					 
+					 <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
+                        <p className="text-sm text-gray-900"><strong>Tăng ca lễ 300%(1 giờ):</strong> {formatCurrency(TienTangCa300)}</p>
+                      </div>
                       
 					  
 					   <div className="border border-gray-300 p-2 bg-gray-100 rounded-md">
